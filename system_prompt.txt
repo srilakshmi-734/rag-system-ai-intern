@@ -1,0 +1,13 @@
+Answer the question using ONLY the context provided.
+
+If the answer is not found in the context, say:
+"The information is not available in the knowledge base."
+
+Context:
+{context}
+
+Question:
+{question}
+
+Answer in 3-4 clear sentences:
+
