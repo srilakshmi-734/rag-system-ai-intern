@@ -12,9 +12,8 @@ st.title("🤖 AI RAG Chatbot")
 st.write("Ask questions based on scraped website data.")
 
 
-# -----------------------------
+
 # Chat History
-# -----------------------------
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
@@ -23,9 +22,8 @@ for message in st.session_state.messages:
         st.markdown(message["content"])
 
 
-# -----------------------------
+
 # User Input
-# -----------------------------
 user_input = st.chat_input("Ask a question...")
 
 if user_input:
@@ -47,7 +45,7 @@ if user_input:
                 answer = "⚠️ No relevant information found."
 
         except Exception as e:
-            answer = f"❌ Error: {str(e)}"
+            answer = f"Error: {str(e)}"
 
     # Show assistant message
     st.session_state.messages.append(
@@ -55,4 +53,4 @@ if user_input:
     )
 
     with st.chat_message("assistant"):
-        st.markdown(answer)
+        st.markdown(answer) 
