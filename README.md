@@ -1,14 +1,13 @@
 Retrieval-Augmented Generation (RAG) System
-
 AI Intern Assessment Submission
 
-Project Overview
+**Project Overview**
 
 This project implements a Retrieval-Augmented Generation (RAG) system as part of the AI Intern assessment. The system scrapes content from a real-world website, validates the scraped data using a defined JSON schema, chunks the content, stores embeddings in a vector database, and retrieves relevant information to generate answers using a language model.
 
 The goal of this project is to build a complete end-to-end RAG pipeline that demonstrates proper system design, data validation, retrieval logic, and controlled answer generation.
 
-Data Source
+**Data Source**
 
 For demonstration, the system scrapes data from:
 
@@ -16,7 +15,11 @@ https://en.wikipedia.org/wiki/Artificial_intelligence
 
 The architecture is modular and can be extended to work with other websites by modifying the input URL.
 
-Data Scraping
+**Extensibility**
+
+Although this implementation demonstrates indexing a single website, the architecture is modular and designed to support other webpages. The scraping, validation, chunking, and indexing components are independent, allowing the system to process different URLs with minor modifications. The vector store can also be extended to support multiple collections if required.
+
+**Data Scraping**
 
 The website content is scraped using requests and BeautifulSoup.
 
@@ -38,7 +41,7 @@ content (paragraph text)
 
 length (character count)
 
-JSON Validation
+**JSON Validation**
 
 The scraped data is validated using a Pydantic schema before further processing.
 
@@ -52,7 +55,7 @@ Content meets minimum length requirements.
 
 Invalid records are excluded from further processing. This prevents malformed data from entering the vector store and ensures robustness of the pipeline.
 
-Chunking Strategy
+**Chunking Strategy**
 
 The validated text is chunked using a recursive character text splitter.
 
@@ -65,7 +68,7 @@ Chunk overlap: 100
 Reasoning:
 Smaller chunks improve retrieval precision because embeddings represent more focused semantic content. Overlap is used to prevent context loss between chunk boundaries. The selected values balance contextual completeness and retrieval accuracy.
 
-Embedding Model
+**Embedding Model**
 
 Embeddings are generated using:
 
@@ -81,7 +84,7 @@ It provides good semantic similarity performance.
 
 It works well for local inference.
 
-Vector Store
+**Vector Store**
 
 ChromaDB is used as the vector database.
 
@@ -97,7 +100,7 @@ No external infrastructure required.
 
 The embeddings and metadata are stored in a persistent directory for retrieval.
 
-Retrieval Process
+**Retrieval Process**
 
 When a user asks a question:
 
@@ -111,7 +114,7 @@ The model generates a grounded answer using only the retrieved context.
 
 Top-k retrieval improves relevance while maintaining response efficiency.
 
-Language Model Integration
+**Language Model Integration**
 
 A HuggingFace model is used for answer generation.
 
@@ -125,55 +128,42 @@ Provide clear and concise answers.
 
 Indicate when information is not available in the knowledge base.
 
-How to Run the Project
+**How to Run the Project**
 
-Clone the repository:
-
+1. Clone the repository
 git clone <repository_url>
 
-Create a virtual environment:
-
+2. Create a virtual environment
 python -m venv venv
 venv\Scripts\activate
 
-Install dependencies:
-
+3. Install dependencies
 pip install -r requirements.txt
 
-Run the full pipeline:
-
+4. Run the full pipeline
 python main.py
 
-Run Streamlit UI:
-
+5. Run Streamlit UI
 streamlit run app.py
 
-Run API (optional):
-
+6. Run API (optional)
 uvicorn api:app --reload
 
-Project Structure
+**Project Structure**
+rag_project/
+│
+├── web_scraper.py      # Scrapes website content
+├── schema.py           # JSON validation using Pydantic
+├── chunking.py         # Text chunking strategy
+├── vector_store.py     # Embedding storage and retrieval
+├── rag_pipeline.py     # Core RAG implementation
+├── main.py             # Runs full pipeline
+├── app.py              # Streamlit interface
+├── api.py              # FastAPI endpoint
+├── system_prompt.txt   # Prompt template
+├── requirements.txt    # Project dependencies
+├── README.md           # Documentation
 
-web_scraper.py – Scrapes website data
-
-schema.py – Validates JSON data
-
-chunking.py – Implements chunking strategy
-
-vector_store.py – Stores and retrieves embeddings
-
-rag_pipeline.py – Implements RAG logic
-
-main.py – Runs full pipeline
-
-app.py – Streamlit interface
-
-api.py – FastAPI endpoint
-
-system_prompt.txt – Prompt template
-
-requirements.txt – Dependencies
-
-Conclusion
+**Conclusion**
 
 This project demonstrates a complete Retrieval-Augmented Generation system including scraping, validation, chunking, vector storage, retrieval, and answer generation. The implementation focuses on modular design, clean data handling, and controlled generation to ensure reliable and explainable responses.
